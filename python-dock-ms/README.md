@@ -111,25 +111,37 @@ RUN cd ~ && \
     git clone -b 'v19.9' --single-branch https://github.com/davisking/dlib.git dlib/ && \
     cd  dlib/ && \
     python3 setup.py install --yes USE_AVX_INSTRUCTIONS
+
 RUN apt-get update
+
 RUN pip3 install uwsgi
+
 LABEL maintainer="gzlkhan409@gmail.com"
+
 LABEL roll_no="PIAIC61295"
+
 ENV CREATEDBY="Cryptic Gemini"
+
 COPY . /app
+
 WORKDIR /app
+
 RUN  pip3 install flask &&  pip3 install face_recognition
 
-# Copy the requirements file in order to install
-# Python dependencies
+#copy the requirements file to install python dependencies
+
 COPY requirements.txt .
-# Install Python dependencies
+
+#install python dependencies
+
 RUN pip install -r requirements.txt
-# Expose the port uWSGI will listen on
+
+#expose the port uwsgi will listen on 
+
 EXPOSE 2020
 
-# Finally, we run uWSGI with the ini file we
-# created earlier
+#finally we run uwsgi with ini file
+
 CMD [ "uwsgi", "--ini", "app.ini" ]
 
 
