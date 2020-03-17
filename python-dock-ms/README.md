@@ -173,13 +173,11 @@ We will name the file Dockerfile-nginx.
 
 # Dockerfile-nginx
 FROM nginx:latest
-# Nginx will listen on this port
+#Nginx will listen on 
 EXPOSE 80
-# Remove the default config file that
-# /etc/nginx/nginx.conf includes
+#remove the default config file that nginx.conf includes
 RUN rm /etc/nginx/conf.d/default.conf
-# We copy the requirements file in order to install
-# Python dependencies
+#we copy the app.conf to conf.d
 COPY app.conf /etc/nginx/conf.d
 
 TIP#2:
