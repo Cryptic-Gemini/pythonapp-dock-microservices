@@ -1,0 +1,51 @@
+FROM python:3.6-slim-stretch
+RUN apt-get -y update
+RUN apt-get install -y --fix-missing \
+    build-essential \
+    cmake \
+    gfortran \
+    git \
+    wget \
+    curl \
+    graphicsmagick \
+    libgraphicsmagick1-dev \
+    libatlas-base-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libgtk2.0-dev \
+    libjpeg-dev \
+    liblapack-dev \
+    libswscale-dev \
+    pkg-config \
+    python3-dev \
+    python3-numpy \
+    software-properties-common \
+    zip \
+    && apt-get clean && rm -rf /tmp/* /var/tmp/*
+
+RUN cd ~ && \
+    mkdir -p dlib && \
+    git clone -b 'v19.9' --single-branch https://github.com/davisking/dlib.git dlib/ && \
+    cd  dlib/ && \
+    python3 setup.py install --yes USE_AVX_INSTRUCTIONS
+RUN apt-get update
+RUN pip3 install uwsgi
+
+LABEL maintainer="gzlkhan409@gmail.com"
+LABEL roll_no="PIAIC61295"
+ENV CREATEDBY="Cryptic Gemini"
+COPY . /app
+WORKDIR /app
+RUN  pip3 install flask &&  pip3 install face_recognition
+
+# Copy the requirements file in order to install
+# Python dependencies
+COPY requirements.txt .
+# Install Python dependencies
+RUN pip install -r requirements.txt
+# Expose the port uWSGI will listen on
+EXPOSE 2020
+
+# Finally, we run uWSGI with the ini file we
+# created earlier
+CMD [ "uwsgi", "--ini", "app.ini" ]
