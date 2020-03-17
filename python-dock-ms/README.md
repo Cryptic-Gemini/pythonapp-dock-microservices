@@ -3,15 +3,12 @@
 ## Assignment Requirement:
 
  1. Dockerize python flask application
- 2. Deploy in kubernetes Pod <br/>
- Use google form link for assignment submission 
- https://forms.gle/wEGtSy6g74SNZNv2A
   
   ## Assignment Help
   
- 1. Download/clone [https://github.com/naveed-rana/PIAIC-Faisalabad-Kubernetes-Assignment-01/](https://github.com/naveed-rana/PIAIC-Faisalabad-Kubernetes-Assignment-01/)  sample flask A.I application.
+ 1. Download/clone the repo
 2.  Application require python installations in your system
-3.  Go to PIAIC-Faisalabad-Kubernetes-Assignment-01 folder open terminal and  run 'pip install -r requirements.txt' for packages installations. 
+3.  Go to folder open terminal and  run 'pip install -r requirements.txt' for packages installations. 
 4.  You can run application using 'python  app.py' 
 5.  Application port 2020. 
 6.  You can use application at localhost:2020
@@ -245,10 +242,6 @@ This little section is telling docker-compose to map the port 2020 on your local
 This part is critical. As you might have noticed in the app.conf, we route traffic from Nginx to uWSGI and viceversa by sending data through the flask hostname. What this section does, is create a virtual hostname flask in our nginx container and setup the networking so that we can route the incoming data to our uWSGI app living in a different container. The depends_on directive also waits until the flask container is in a functional state before launching the nginx container, which avoids having a scenario where Nginx fails when the flask host is unresponsive.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
-
-https://linchpiner.github.io/k8s-multi-container-pods.html
-https://stackabuse.com/deploying-a-flask-application-to-heroku/#:~:text=Heroku%20is%20one%20of%20the,Python%2C%20PHP%2C%20and%20Go.
-
 
 
 
